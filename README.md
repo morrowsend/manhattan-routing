@@ -53,26 +53,13 @@ Development
 Layout:
 
     .
-    |-- lib          # javascript helper
-    |-- src          # source code
-    |-- spec         # unit test with jasmine
-    |-- reports      # code coverage with istanbul
-    `-- doc          # documentation with jsdoc
+        |-- src          # source code
+
     
 Running the Unit Tests
 --------------------------------------
+#### [Working demo here](http://plnkr.co/edit/8h8wZpzyjaUOihoftF5K?p=preview) ####
 
-Make sure you have the necessary dependencies:
-
-```bash
-npm install
-```
-
-Start `grunt test` or `grunt watch:unittest` to auto-build as you work.
-
-For single run use this:
-```bash
-grunt jasmine
 ```
 
 
