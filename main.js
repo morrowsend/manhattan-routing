@@ -1,62 +1,127 @@
-;(function(global, undefined){
-'use strict';
+var canvas = new fabric.Canvas("myCanvas");
+canvas.setHeight(1000);
+canvas.setWidth(1200);
 
-	var paper = new Snap(1200,1000);
 
-	var boxA = paper.rect(50, 50, 100, 100, 2).attr({
-		fill: "#FFF",
-		stroke: "#000",
-		strokeWidth: 1
-	});
 
-	var boxB = paper.rect(250, 50, 100, 100, 2).attr({
-		fill: "#FFF",
-		stroke: "#000",
-		strokeWidth: 1
-	});
 
-	var ab = new Connector(paper, boxA, 'right', boxB, 'left');
 
-	var boxC = paper.rect(50, 250, 100, 100, 2).attr({
-		fill: "#FFF",
-		stroke: "#000",
-		strokeWidth: 1
-	});
+// create a rectangle object
+var boxA = new fabric.Rect({
+  left: 50,
+  top: 50,
+  width: 100,
+  height: 100,
+  strokeWidth: 2,
+  stroke: "#000",
+  fill: "#FFF",
+});
 
-	var boxD = paper.rect(250, 350, 100, 100, 2).attr({
-		fill: "#FFF",
-		stroke: "#000",
-		strokeWidth: 1
-	});
+canvas.add(boxA);
 
-	var cd = new Connector(paper, boxC, 'right', boxD, 'left');
 
-	var boxE = paper.rect(450, 50, 100, 100, 2).attr({
-		fill: "#FFF",
-		stroke: "#000",
-		strokeWidth: 1
-	});
+// create a rectangle object
+var boxB = new fabric.Rect({
+  left: 250,
+  top: 50,
+  width: 100,
+  height: 100, 
+  strokeWidth: 2,
+  stroke: "#000",
+  fill: "#FFF",
+});
+canvas.add(boxB);
 
-	var boxF = paper.rect(650, 50, 100, 100, 2).attr({
-		fill: "#FFF",
-		stroke: "#000",
-		strokeWidth: 1
-	});
 
-	var ef = new Connector(paper, boxE, 'left', boxF, 'right');
+	var ab = new Connector(canvas, boxA, 'right', boxB, 'left');
 
-	var boxG = paper.rect(450, 250, 100, 100, 2).attr({
-		fill: "#FFF",
-		stroke: "#000",
-		strokeWidth: 1
-	});
 
-	var boxH = paper.rect(650, 250, 100, 100, 2).attr({
-		fill: "#FFF",
-		stroke: "#000",
-		strokeWidth: 1
-	});
 
-	var gh = new Connector(paper, boxG, 'left', boxH, 'left');
+// create a rectangle object
+var boxC = new fabric.Rect({
+  left: 50,
+  top: 250,
+  width: 100,
+  height: 100,
+  strokeWidth: 1,
+  stroke: "#000",
+  fill: "#FFF",
+});
 
-}(this));
+canvas.add(boxC);
+
+
+// create a rectangle object
+var boxD = new fabric.Rect({
+  left: 250,
+  top: 350,
+  width: 100,
+  height: 100, 
+  strokeWidth: 1,
+  stroke: "#000",
+  fill: "#FFF",
+});
+canvas.add(boxD);
+
+
+
+// canvas.add(new fabric.Path('M50,300L20,400L20,480L180,480L180,400L250,400',{
+//     stroke: 'black',
+//     fill: '',
+//     strokeWidth: 4
+// }));
+
+
+var cd = new Connector(canvas, boxC, 'right', boxD, 'left');
+
+// create a rectangle object
+var boxE = new fabric.Rect({
+  left: 450,
+  top: 50,
+  width: 100,
+  height: 100, 
+  strokeWidth: 1,
+  stroke: "#000",
+  fill: "#FFF",
+});
+canvas.add(boxE);
+
+// create a rectangle object
+var boxF = new fabric.Rect({
+  left: 650,
+  top: 50,
+  width: 100,
+  height: 100, 
+  strokeWidth: 1,
+  stroke: "#000",
+  fill: "#FFF",
+});
+canvas.add(boxF);
+
+	var ef = new Connector(canvas, boxE, 'left', boxF, 'right');
+
+// create a rectangle object
+var boxG = new fabric.Rect({
+  left: 450,
+  top: 250,
+  width: 100,
+  height: 100, 
+  strokeWidth: 1,
+  stroke: "#000",
+  fill: "#FFF",
+});
+canvas.add(boxG);
+
+// create a rectangle object
+var boxH = new fabric.Rect({
+  left: 650,
+  top: 250,
+  width: 100,
+  height: 100, 
+  strokeWidth: 1,
+  stroke: "#000",
+  fill: "#FFF",
+});
+canvas.add(boxH);
+
+	var gh = new Connector(canvas, boxG, 'left', boxH, 'left');

@@ -60,7 +60,7 @@ this.Connector = (function(global, undefined) {
 		this.sourcePoint = this.getAnchor(so, sd);
 		this.targetPoint = this.getAnchor(to, td);
 		this.direction = this.getDirection();
-
+// console.log("here", so, sd, this.getAnchor(so, sd))
 		this.draw(this.sourcePoint, this.targetPoint);
 	}
 
@@ -90,10 +90,12 @@ this.Connector = (function(global, undefined) {
 	Connector.prototype.getAnchor = function(element, direction) {
 
 		var x,y = 0;
-		var sx = element.attr('x') * 1;
-		var sy = element.attr('y') * 1;
-		var sh = element.attr('height') * 1;
-		var sw = element.attr('width') * 1;
+// console.log("in Anchor, element=",element, "dir = ", direction)
+		var sx = element.left;
+		var sy = element.top;
+		var sh = element.height;
+		var sw = element.width;
+// console.log("height =", sh)
 
 		switch (direction) {
 			case 'right':
@@ -116,7 +118,7 @@ this.Connector = (function(global, undefined) {
 				x = sx + sw;
 				y = sy + sh/2;
 		}
-
+// console.log("anchor returns X=", x, "y = ", y, "dir = ", direction)
 		return { x : x, y : y, d : direction };
 	};
 
@@ -129,6 +131,7 @@ this.Connector = (function(global, undefined) {
 	 * @return {object}  
 	 */
 	Connector.prototype.getDirection = function(sx, sy, tx, ty) {
+// console.log(sx,sy,tx,ty)
 
 		var x,y = 0;
 		var d = '';
@@ -154,7 +157,6 @@ this.Connector = (function(global, undefined) {
 		} else if (dy === 0) {
 			y = 0;  // center
 		}
-
 		return { x : x, y : y, d: d };
 	};
 
@@ -166,8 +168,7 @@ this.Connector = (function(global, undefined) {
 	 * @param {number} ty - Target Point Y Coordinate.
 	 */
 	Connector.prototype.drawLine = function(sx, sy, tx, ty) {
-
-
+// console.log(sx,sy,tx,ty)
 		var pathString = '';
 		var connectionDirection = this.getDirection(sx,sy,tx,ty);
 		var sourcePointDirection = this.sourcePoint.d;
@@ -178,15 +179,19 @@ this.Connector = (function(global, undefined) {
 
 		// change direction and walk around the source element
 		if(connectionDirection.d.indexOf(sourcePointDirection) === -1) {
+			  console.log("walk")
 
 			pathString += 'L' + (sx-padding) + ',' + ty;
 			pathString += 'L' + (sx-padding) + ',' + (ty+50+padding);
 					
 			// should we walk around the target element?
 			if(connectionDirection.d.indexOf(targetPointDirection) !== -1) {
+			  console.log("walk")
 				pathString += 'L' + (tx+padding) + ',' + (ty+50+padding);
 				pathString += 'L' + (tx+padding) + ',' + ty;
 			} else {
+			  			  console.log("walk")
+
 				pathString += 'L' + (sx+100+padding) + ',' + (ty+50+padding);
 				pathString += 'L' + (sx+100+padding) + ',' + (ty);
 			}
@@ -203,12 +208,20 @@ this.Connector = (function(global, undefined) {
 			pathString += 'L' + tx + ',' + ty;
 		}
 
-		this.paper.path(pathString).attr({
-			fill: '#FFF',
-			fillOpacity : 0,
-			stroke: '#000',
-			strokeWidth: 1
-		});
+		// this.paper.path(pathString).attr({
+		// 	fill: '#FFF',
+		// 	fillOpacity : 0,
+		// 	stroke: '#000',
+		// 	strokeWidth: 1
+		// });
+		console.log(pathString)
+	canvas.add(new fabric.Path(pathString,{
+    stroke: 'black',
+    fill: '',
+    strokeWidth: 4
+}));
+
+		
 	};
 
 	/**
@@ -220,7 +233,9 @@ this.Connector = (function(global, undefined) {
 
 		var radius = 4;
 
-		this.paper.circle(sx, sy, radius);
+		// this.paper.circle(sx, sy, radius);
+		  canvas.add(new fabric.Circle({ radius: radius, fill: '#f55', top: sy, left: sx }));
+
 	};
 
 	/**
@@ -234,7 +249,14 @@ this.Connector = (function(global, undefined) {
 			p += 'L' + (tx-10) + ',' + (ty+5);
 			p += 'L' + (tx-10) + ',' + (ty-5);
 			p += 'L' + tx + ',' + ty;
-			arrow = this.paper.path(p);
+		// 	arrow = this.paper.path(p);
+
+	arrow = canvas.add(new fabric.Path(p,{
+    stroke: 'black',
+    fill: '',
+    strokeWidth: 4
+}));
+
 
 		switch (direction) {
 			case 'right':
@@ -253,7 +275,8 @@ this.Connector = (function(global, undefined) {
 				a = 0;
 		}
 
-		arrow.transform('rotate(' + a + ',' + tx + ',' + ty + ')');
+		// arrow.transform('rotate(' + a + ',' + tx + ',' + ty + ')');
+		// arrow.rotate(a)
 	};
 
 	return Connector;
